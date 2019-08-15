@@ -20,15 +20,16 @@
 
         <service
             android:name=".service.HermesService"
-            android:enabled="true"
             android:process=":hermes1" />
 
         <service android:name="com.library.hermes.HermesService$HermesService0" />
 
         <service
             android:name=".service.ThreadService"
-            android:enabled="true"
             android:process=":hermes2" />
+        <service
+            android:name=".service.SupperService"
+            android:process=":hermes3" />
     </application>
 
 </manifest>

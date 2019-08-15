@@ -9,15 +9,16 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.lh.hermes.interfaces.IUserBean;
+import com.lh.hermes.interfaces.IUserInstanceBean;
 import com.library.hermes.Hermes;
 import com.library.hermes.HermesListener;
 
 /**
  * user：LuHao
  * time：2019/8/15 10:13
- * describe：跨进程通信的Hermes
+ * describe：跨进程通信的Herms，当前传递的对象没有使用@MethodId标签
  */
-public class ThreadService extends Service {
+public class SupperService extends Service {
 
     @Override
     public void onCreate() {
@@ -26,9 +27,23 @@ public class ThreadService extends Service {
         Hermes.setHermesListener(new HermesListener() {
             @Override
             public void onHermesConnected(Class<? extends com.library.hermes.HermesService> service) {
+
                 //连接成功，首先获取单例
-                IUserBean iUserBean = Hermes.newInstance(IUserBean.class, 1, "admin", 9999D);
-                Log.i("appjson", "当前进程传递的值：" + iUserBean.getName());
+                try {
+                    IUserBean maths = Hermes.getUtilityClass(IUserBean.class);
+                    if (maths == null)
+                        Log.i("appjson1", "当前IUserBean==null");
+                    else
+                        Log.i("appjson1", "当前IUserBean传递的值：" + maths.add(1, 2));
+                    IUserInstanceBean iUserUpperBean = Hermes.getInstance(IUserInstanceBean.class, "aaa");
+                    if (iUserUpperBean == null)
+                        Log.i("appjson1", "当前iUserUpperBean==null");
+                    else
+                        Log.i("appjson1", "当前iUserUpperBean传递的值：" + iUserUpperBean.getName());
+                } catch (Exception e) {
+
+                    Log.i("appjson1", e.getMessage());
+                }
             }
         });
         //连接Hermes服务

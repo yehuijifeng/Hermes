@@ -1,7 +1,6 @@
 package com.lh.hermes.bean;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.library.hermes.annotation.ClassId;
 import com.library.hermes.annotation.MethodId;
@@ -25,6 +24,10 @@ public class UserBean {
         this.name = name;
         this.money = money;
         Log.i("appjson", id + ">" + name + ">" + money);
+    }
+
+    public static int add(int a, int b) {
+        return a + b;
     }
 
     @MethodId("getId")

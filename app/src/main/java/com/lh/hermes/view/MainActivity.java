@@ -1,7 +1,5 @@
 package com.lh.hermes.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -11,11 +9,14 @@ import android.os.RemoteException;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.lh.hermes.R;
 import com.lh.hermes.bean.IHermesService;
 import com.lh.hermes.bean.UserBean;
-import com.lh.hermes.interfaces.IUserBean;
+import com.lh.hermes.bean.UserInstanceBean;
 import com.lh.hermes.service.HermesService;
+import com.lh.hermes.service.SupperService;
 import com.lh.hermes.service.ThreadService;
 import com.library.hermes.Hermes;
 
@@ -29,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HermesService.class);
         startService(intent);
         Hermes.register(UserBean.class);
+        Hermes.register(UserInstanceBean.class);
         Intent intent1 = new Intent(this, ThreadService.class);
         startService(intent1);
+        Intent intent2 = new Intent(this, SupperService.class);
+        startService(intent2);
     }
 
     @Override

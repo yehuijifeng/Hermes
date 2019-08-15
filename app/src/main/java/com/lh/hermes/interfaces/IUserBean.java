@@ -10,6 +10,7 @@ import com.library.hermes.annotation.MethodId;
  */
 @ClassId("UserBean")
 public interface IUserBean {
+    int add(int a, int b);
 
     @MethodId("getId")
     int getId();
