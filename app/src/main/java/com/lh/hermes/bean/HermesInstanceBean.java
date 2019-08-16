@@ -6,44 +6,43 @@ import com.library.hermes.annotation.GetInstance;
 /**
  * user：LuHao
  * time：2019/8/15 17:19
- * describe：单例进程，并且没有使用@MethodId注解
+ * describe：测试跨进程hermes的实体类。对应方法：Hermes.getInstance(Class , Object...)
+ * doc:该方法可以获得单例，调用的对象必须是static且带有@GetInstance。另外，可以忽略@MethodId注解
  */
-@ClassId("UserInstanceBean")
-public class UserInstanceBean {
+@ClassId("HermesInstanceBean")
+public class HermesInstanceBean {
     private int id;
     private String name;
-    private static UserInstanceBean instance;
+    private static HermesInstanceBean instance;
 
-    private UserInstanceBean(int id, String name) {
+    private HermesInstanceBean(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
     @GetInstance
-    public synchronized static UserInstanceBean getInstance() {
+    public synchronized static HermesInstanceBean getInstance() {
         if (instance == null) {
-            instance = new UserInstanceBean(1, "admin");
+            instance = new HermesInstanceBean(1, "admin");
         }
         return instance;
     }
 
     @GetInstance
-    public synchronized static UserInstanceBean getInstance(int id) {
+    public synchronized static HermesInstanceBean getInstance(int id) {
         if (instance == null) {
-            instance = new UserInstanceBean(id, "只有id");
+            instance = new HermesInstanceBean(id, "只有id");
         }
         return instance;
     }
 
     @GetInstance
-    public synchronized static UserInstanceBean getInstance(String name) {
+    public synchronized static HermesInstanceBean getInstance(String name) {
         if (instance == null) {
-            instance = new UserInstanceBean(100, name);
+            instance = new HermesInstanceBean(100, name);
         }
         return instance;
     }
-
-
 
     public int getId() {
         return id;

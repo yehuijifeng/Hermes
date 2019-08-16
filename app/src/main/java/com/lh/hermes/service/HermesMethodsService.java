@@ -8,16 +8,17 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.lh.hermes.interfaces.IUserBean;
+import com.lh.hermes.interfaces.IHermesMethodBean;
 import com.library.hermes.Hermes;
 import com.library.hermes.HermesListener;
+import com.library.hermes.HermesService;
 
 /**
  * user：LuHao
  * time：2019/8/15 10:13
  * describe：跨进程通信的Hermes
  */
-public class ThreadService extends Service {
+public class HermesMethodsService extends Service {
 
     @Override
     public void onCreate() {
@@ -25,10 +26,10 @@ public class ThreadService extends Service {
         //在连接之前给Hermes设置监听器
         Hermes.setHermesListener(new HermesListener() {
             @Override
-            public void onHermesConnected(Class<? extends com.library.hermes.HermesService> service) {
+            public void onHermesConnected(Class<? extends HermesService> service) {
                 //连接成功，首先获取单例
-                IUserBean iUserBean = Hermes.newInstance(IUserBean.class, 1, "admin", 9999D);
-                Log.i("appjson", "当前进程传递的值：" + iUserBean.getName());
+                IHermesMethodBean iHermesMethodBean = Hermes.newInstance(IHermesMethodBean.class, 1, "admin", 9999D);
+                Log.i("appjson", "当前IHermesMethodBean传递的值：" + iHermesMethodBean.getName());
             }
         });
         //连接Hermes服务

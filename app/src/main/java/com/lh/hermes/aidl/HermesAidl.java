@@ -19,6 +19,6 @@ public class HermesAidl extends IHermesService.Stub {
     @Override
     public void setHermesBean(int id, String name, double money) {
         HermesBean hermesBean = new HermesBean(id, name, money);
-        Log.i("appjson", "其他进程传递进来的：" + hermesBean.toString());
+        Log.i("appjson", "其他进程传递进来的hermesBean：" + hermesBean.toString());
     }
 }

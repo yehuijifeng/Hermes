@@ -19,17 +19,23 @@
         </activity>
 
         <service
-            android:name=".service.HermesService"
-            android:process=":hermes1" />
+            android:name=".service.HermesTestService"
+            android:process=":hermes_test" />
 
         <service android:name="com.library.hermes.HermesService$HermesService0" />
 
         <service
-            android:name=".service.ThreadService"
-            android:process=":hermes2" />
+            android:name=".service.HermesMethodsService"
+            android:process=":hermes_instance" />
         <service
-            android:name=".service.SupperService"
-            android:process=":hermes3" />
+            android:name=".service.HermesInstanceService"
+            android:process=":hermes_method" />
+        <service
+            android:name=".service.HermesUtilityService"
+            android:process=":hermes_utility" />
+        <service
+            android:name=".service.HermesOtherService"
+            android:process=":hermes_other" />
     </application>
 
 </manifest>

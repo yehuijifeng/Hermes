@@ -8,26 +8,22 @@ import com.library.hermes.annotation.MethodId;
 /**
  * user：LuHao
  * time：2019/8/15 15:05
- * describe：测试跨进程hermes的实体类
+ * describe：测试跨进程hermes的实体类。对应方法：Hermes.newInstance(Class,Object…)
+ * doc:该方法相当于new，所以被标记的class中的方法不需要static
  */
-@ClassId("UserBean")
-public class UserBean {
+@ClassId("HermesMethodBean")
+public class HermesMethodBean {
     private int id;
     private String name;
     private double money;
 
-    public UserBean() {
+    public HermesMethodBean() {
     }
 
-    public UserBean(int id, String name, double money) {
+    public HermesMethodBean(int id, String name, double money) {
         this.id = id;
         this.name = name;
         this.money = money;
-        Log.i("appjson", id + ">" + name + ">" + money);
-    }
-
-    public static int add(int a, int b) {
-        return a + b;
     }
 
     @MethodId("getId")
@@ -63,7 +59,7 @@ public class UserBean {
     @MethodId("toString")
     @Override
     public String toString() {
-        return "UserBean{" +
+        return "HermesMethodBean{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", money=" + money +

@@ -12,12 +12,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lh.hermes.R;
+import com.lh.hermes.bean.HermesInstanceBean;
+import com.lh.hermes.bean.HermesMethodBean;
+import com.lh.hermes.bean.HermesOtherBean;
+import com.lh.hermes.bean.HermesUtilityBean;
 import com.lh.hermes.bean.IHermesService;
-import com.lh.hermes.bean.UserBean;
-import com.lh.hermes.bean.UserInstanceBean;
-import com.lh.hermes.service.HermesService;
-import com.lh.hermes.service.SupperService;
-import com.lh.hermes.service.ThreadService;
+import com.lh.hermes.interfaces.IHermesOtherListener;
+import com.lh.hermes.service.HermesUtilityService;
+import com.lh.hermes.service.HermesOtherService;
+import com.lh.hermes.service.HermesTestService;
+import com.lh.hermes.service.HermesInstanceService;
+import com.lh.hermes.service.HermesMethodsService;
 import com.library.hermes.Hermes;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,14 +32,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, HermesService.class);
+        Intent intent = new Intent(this, HermesTestService.class);
         startService(intent);
-        Hermes.register(UserBean.class);
-        Hermes.register(UserInstanceBean.class);
-        Intent intent1 = new Intent(this, ThreadService.class);
+        Hermes.register(HermesMethodBean.class);
+        Hermes.register(HermesInstanceBean.class);
+        Hermes.register(HermesUtilityBean.class);
+        Hermes.register(HermesOtherBean.class);
+        Hermes.register(IHermesOtherListener.class);
+        Intent intent1 = new Intent(this, HermesMethodsService.class);
         startService(intent1);
-        Intent intent2 = new Intent(this, SupperService.class);
+        Intent intent2 = new Intent(this, HermesInstanceService.class);
         startService(intent2);
+        Intent intent3 = new Intent(this, HermesUtilityService.class);
+        startService(intent3);
+        Intent intent4 = new Intent(this, HermesOtherService.class);
+        startService(intent4);
+
     }
 
     @Override
@@ -76,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBind(View view) {
-        Intent intent = new Intent(this, HermesService.class);
+        Intent intent = new Intent(this, HermesTestService.class);
         //绑定这个客户端
         bindService(intent, hermesConnection, BIND_ABOVE_CLIENT);
     }

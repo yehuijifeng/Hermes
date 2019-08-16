@@ -5,10 +5,10 @@ import com.library.hermes.annotation.ClassId;
 /**
  * User: LuHao
  * Date: 2019/8/15 22:43
- * Describe:UserUpperBean的对应接口
+ * Describe:UserUpperBean的对应接口。使用getInstance去获取对象，获取的方法必须是static且带有@GetInstance注解
  */
-@ClassId("UserInstanceBean")
-public interface IUserInstanceBean {
+@ClassId("HermesInstanceBean")
+public interface IHermesInstanceBean {
 
     int getId();
 

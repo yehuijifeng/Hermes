@@ -6,11 +6,10 @@ import com.library.hermes.annotation.MethodId;
 /**
  * user：LuHao
  * time：2019/8/15 15:12
- * describe：测试hermes的接口
+ * describe：测试hermes的接口，使用newInstance去new一个对象，方法不需要使用static
  */
-@ClassId("UserBean")
-public interface IUserBean {
-    int add(int a, int b);
+@ClassId("HermesMethodBean")
+public interface IHermesMethodBean {
 
     @MethodId("getId")
     int getId();

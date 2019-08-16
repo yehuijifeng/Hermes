@@ -8,17 +8,18 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.lh.hermes.interfaces.IUserBean;
-import com.lh.hermes.interfaces.IUserInstanceBean;
+import com.lh.hermes.interfaces.IHermesMethodBean;
+import com.lh.hermes.interfaces.IHermesInstanceBean;
 import com.library.hermes.Hermes;
 import com.library.hermes.HermesListener;
+import com.library.hermes.HermesService;
 
 /**
  * user：LuHao
  * time：2019/8/15 10:13
  * describe：跨进程通信的Herms，当前传递的对象没有使用@MethodId标签
  */
-public class SupperService extends Service {
+public class HermesInstanceService extends Service {
 
     @Override
     public void onCreate() {
@@ -26,23 +27,18 @@ public class SupperService extends Service {
         //在连接之前给Hermes设置监听器
         Hermes.setHermesListener(new HermesListener() {
             @Override
-            public void onHermesConnected(Class<? extends com.library.hermes.HermesService> service) {
+            public void onHermesConnected(Class<? extends HermesService> service) {
 
                 //连接成功，首先获取单例
                 try {
-                    IUserBean maths = Hermes.getUtilityClass(IUserBean.class);
-                    if (maths == null)
-                        Log.i("appjson1", "当前IUserBean==null");
-                    else
-                        Log.i("appjson1", "当前IUserBean传递的值：" + maths.add(1, 2));
-                    IUserInstanceBean iUserUpperBean = Hermes.getInstance(IUserInstanceBean.class, "aaa");
+                    IHermesInstanceBean iUserUpperBean = Hermes.getInstance(IHermesInstanceBean.class, "aaa");
                     if (iUserUpperBean == null)
-                        Log.i("appjson1", "当前iUserUpperBean==null");
+                        Log.i("appjson", "当前IHermesInstanceBean==null");
                     else
-                        Log.i("appjson1", "当前iUserUpperBean传递的值：" + iUserUpperBean.getName());
+                        Log.i("appjson", "当前IHermesInstanceBean传递的值：" + iUserUpperBean.getName());
                 } catch (Exception e) {
 
-                    Log.i("appjson1", e.getMessage());
+                    Log.i("appjson", e.getMessage());
                 }
             }
         });
