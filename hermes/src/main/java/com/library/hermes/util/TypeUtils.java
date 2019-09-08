@@ -63,7 +63,7 @@ public class TypeUtils {
             return clazz.getName();
         }
     }
-
+    //生成method的id的方法：方法名(参数名）
     public static String getMethodId(Method method) {
         MethodId methodId = method.getAnnotation(MethodId.class);
         if (methodId != null) {
@@ -270,34 +270,40 @@ public class TypeUtils {
         }
         return parameterWrappers;
     }
-
+    //检查传递进来的class
     public static void validateClass(Class<?> clazz) {
+        //不能为null
         if (clazz == null) {
             throw new IllegalArgumentException("Class object is null.");
         }
+        //不能为基础类型（boolean,int,chat,byte,short,long,float,double）和接口
         if (clazz.isPrimitive() || clazz.isInterface()) {
             return;
         }
+        //如果带有该注解，则表示：不让一个类或者函数被其他进程访问
         if (clazz.isAnnotationPresent(WithinProcess.class)) {
             throw new IllegalArgumentException(
                     "Error occurs when registering class " + clazz.getName()
                             + ". Class with a WithinProcess annotation presented on it cannot be accessed"
                             + " from outside the process.");
         }
-
+        //不能是匿名类
         if (clazz.isAnonymousClass()) {
             throw new IllegalArgumentException(
                     "Error occurs when registering class " + clazz.getName()
                             + ". Anonymous class cannot be accessed from outside the process.");
         }
+        //不能是private的私有类
         if (clazz.isLocalClass()) {
             throw new IllegalArgumentException(
                     "Error occurs when registering class " + clazz.getName()
                             + ". Local class cannot be accessed from outside the process.");
         }
+        //如果当前class的父类是context直接返回
         if (Context.class.isAssignableFrom(clazz)) {
             return;
         }
+        //不能是抽象类
         if (Modifier.isAbstract(clazz.getModifiers())) {
             throw new IllegalArgumentException(
                     "Error occurs when registering class " + clazz.getName()

@@ -30,14 +30,18 @@ import com.library.hermes.wrapper.ParameterWrapper;
  * Created by Xiaofei on 16/4/7.
  */
 public class Mail implements Parcelable {
-
+    //时间戳
     private long mTimeStamp;
 
+    //pid
     private int mPid;
 
+    //object
     private ObjectWrapper mObject;
 
+    //method
     private MethodWrapper mMethod;
+
 
     private ParameterWrapper[] mParameters;
 

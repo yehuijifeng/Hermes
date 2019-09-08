@@ -1,19 +1,17 @@
 /**
- *
  * Copyright 2016 Xiaofei
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 package com.library.hermes.internal;
@@ -27,24 +25,32 @@ import android.os.RemoteException;
 
 import java.util.List;
 
+/**
+ * 这里将aidl自动生成的代码实现，为了快进程使用
+ */
 public interface IHermesService extends IInterface {
 
     abstract class Stub extends Binder implements IHermesService {
-
+        //这里指定包名绝对路径到iHermesservice
         private static final String DESCRIPTOR = "com.library.hermes.internal.IHermesService";
 
+        //保存当前service
         public Stub() {
             this.attachInterface(this, DESCRIPTOR);
         }
 
+        //获得当前service
         public static IHermesService asInterface(IBinder obj) {
-            if ((obj==null)) {
+            if ((obj == null)) {
                 return null;
             }
+            //查询本地接口
             IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-            if (((iin!=null)&&(iin instanceof IHermesService))) {
-                return ((IHermesService)iin);
-            }
+            //查询到的IInterface不为null且属于IHermesService
+            if (iin != null)
+                if (iin instanceof IHermesService)
+                    return ((IHermesService) iin);
+            //如果本地接口没有查询到则新建一个， 继续走
             return new Proxy(obj);
         }
 
@@ -97,6 +103,7 @@ public interface IHermesService extends IInterface {
             return super.onTransact(code, data, reply, flags);
         }
 
+        //新建一个Ihermesservice
         private static class Proxy implements IHermesService {
 
             private IBinder mRemote;
@@ -116,12 +123,13 @@ public interface IHermesService extends IInterface {
 
             @Override
             public Reply send(Mail mail) throws RemoteException {
-                Parcel _data = Parcel.obtain();
+                Parcel _data = Parcel.obtain();//创建Parcel
                 Parcel _reply = Parcel.obtain();
                 Reply _result;
                 try {
+                    //写入当前IHermesService
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    if ((mail!=null)) {
+                    if ((mail != null)) {
                         _data.writeInt(1);
                         mail.writeToParcel(_data, 0);
                     } else {
@@ -129,7 +137,7 @@ public interface IHermesService extends IInterface {
                     }
                     mRemote.transact(Stub.TRANSACTION_send, _data, _reply, 0);
                     _reply.readException();
-                    if ((0!=_reply.readInt())) {
+                    if ((0 != _reply.readInt())) {
                         _result = Reply.CREATOR.createFromParcel(_reply);
                     } else {
                         _result = null;
@@ -147,7 +155,7 @@ public interface IHermesService extends IInterface {
                 Parcel _reply = Parcel.obtain();
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
-                    _data.writeStrongBinder((((callback!=null))?(callback.asBinder()):(null)));
+                    _data.writeStrongBinder((((callback != null)) ? (callback.asBinder()) : (null)));
                     _data.writeInt(pid);
                     mRemote.transact(Stub.TRANSACTION_register, _data, _reply, 0);
                     _reply.readException();
@@ -166,8 +174,7 @@ public interface IHermesService extends IInterface {
                     _data.writeList(timeStamps);
                     mRemote.transact(Stub.TRANSACTION_gc, _data, _reply, 0);
                     _reply.readException();
-                }
-                finally {
+                } finally {
                     _reply.recycle();
                     _data.recycle();
                 }
